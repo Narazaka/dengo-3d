@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using Device.Net;
 using Usb.Net.Windows;
 using Cysharp.Threading.Tasks;
+using Rug.Osc;
+using System.Net;
 
 public class MasterController : MonoBehaviour
 {
@@ -63,9 +65,8 @@ public class MasterController : MonoBehaviour
         public float AccelRate { get => Accel / MaxAccel; }
     }
 
-    async UniTask Start()
+    void Start()
     {
-        await GetDevice();
         GetDeviceButton.onClick.AddListener(async () => await GetDevice());
     }
 
@@ -99,5 +100,15 @@ public class MasterController : MonoBehaviour
         {
             Device = null;
         }
+    }
+
+    public void SetAccel(int accel)
+    {
+        ControllerValue.Accel = accel;
+    }
+
+    public void SetBrake(int brake)
+    {
+        ControllerValue.Brake = brake;
     }
 }
